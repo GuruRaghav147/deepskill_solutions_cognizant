@@ -1,0 +1,101 @@
+use admin
+//62
+db["feedback"].find()
+//63
+db.feedback.insertOne({
+  "student_id": 111,
+  "course_code": "CS101",
+  "semester": "2024-ODD",
+  "rating": 5,
+  "comments": "No attachments needed here. The flexibility of MongoDB is great!",
+  "tags": ["flexible-schema", "smooth-experience"],
+  "submitted_at": ISODate("2024-11-15T09:00:00Z")
+})
+//64
+db.feedback.countDocuments()
+//Task 2
+//65
+db.feedback.find({ 
+  course_code: "CS101", 
+  tags: "challenging" 
+})
+//66
+db.feedback.find(
+  {}, 
+  { student_id: 1, course_code: 1, rating: 1, _id: 0 }
+)
+//67
+db.feedback.updateMany(
+  { rating: { $lt: 3 } },
+  { $set: { needs_review: true } }
+)
+//68
+db.feedback.updateMany(
+  { needs_review: true },
+  { $push: { tags: "reviewed" } }
+)
+//69
+db.feedback.deleteMany({ semester: "2021-EVEN" })
+//70
+db.feedback.aggregate([
+  // Stage 1: Filter by semester
+  { 
+    $match: { semester: "2022-ODD" } 
+  },
+  // Stage 2: Group by course and calculate average and count
+  { 
+    $group: {
+      _id: "$course_code",
+      avg_rating: { $avg: "$rating" },
+      total_feedback: { $sum: 1 }
+    }
+  },
+  // Stage 3: Sort by average rating descending
+  { 
+    $sort: { avg_rating: -1 } 
+  }
+])
+//Task 3
+//71
+db.feedback.aggregate([
+  { 
+    $match: { semester: "2022-ODD" } 
+  },
+  { 
+    $group: {
+      _id: "$course_code",
+      avg_rating: { $avg: "$rating" },
+      total_feedback: { $sum: 1 }
+    }
+  },
+  { 
+    $sort: { avg_rating: -1 } 
+  },
+  // Stage 4: Project to rename and round fields
+  {
+    $project: {
+      _id: 0,                           // Hide the original _id field
+      course_code: "$_id",              // Bring the course code back as a standard field
+      average_rating: { $round: ["$avg_rating", 1] }, // Round to 1 decimal place
+      total_feedback: 1                 // Keep the total count field as-is
+    }
+  }
+])
+//72
+db.feedback.aggregate([
+  // Stage 1: Flatten the tags array
+  { $unwind: "$tags" },
+  // Stage 2: Group by each unique tag and increment the counter
+  {
+    $group: {
+      _id: "$tags",
+      count: { $sum: 1 }
+    }
+  },
+  // Stage 3: Sort the leaderboard by count in descending order
+  { $sort: { count: -1 } }
+])
+//73
+db.feedback.createIndex({ course_code: 1 })
+//74
+db.feedback.find({ course_code: "CS101" }).explain("executionStats")

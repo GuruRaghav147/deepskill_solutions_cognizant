@@ -1,0 +1,277 @@
+/* STEP 8: Universal CSS Reset */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* STEP 9: Body base typography and background properties */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    color: #333333;
+    line-height: 1.6;
+}
+
+/* STEP 10 & 15: Header container styling (MOBILE FIRST DEFAULT) */
+header {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 1rem; /* Reduced for smaller viewports */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* STEP 27: Fluid Typography using clamp() */
+.site-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Mobile Hamburger Menu Placeholder Style */
+.menu-toggle {
+    display: block; /* Visible on mobile */
+    background: none;
+    border: 1px solid #cbd5e1;
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* STEP 11 & 16: Navigation links (Hidden on mobile by default) */
+.nav-menu {
+    display: none;
+}
+
+/* STEP 12 & 17: Hero section configurations (MOBILE FIRST DEFAULT) */
+#hero {
+    padding: 2rem 1rem; /* Snug padding for mobile screens */
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    /* STEP 27: Viewport units implementation */
+    min-height: 40vh; 
+    justify-content: center;
+}
+
+#hero h1 {
+    font-size: 2rem; /* Scaled down for mobile */
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+#hero p {
+    font-size: 1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+}
+
+#hero button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #2563eb;
+    border: 2px solid #2563eb;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Button Hover Pseudo-class state */
+#hero button:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+/* STEP 18: Student Stats Bar (MOBILE FIRST DEFAULT) */
+.stats-bar {
+    margin: 1.5rem 1rem 0 1rem; /* Margin bounds for mobile boundaries */
+    background-color: #ffffff;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    
+    /* Stacks elements vertically on mobile screens to save width */
+    flex-direction: column; 
+    gap: 1rem;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+/* STEP 13, 19, 20 & 23: Course layout wrappers (MOBILE FIRST DEFAULT) */
+#courses {
+    padding: 2rem 1rem;
+}
+
+#courses h2 {
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+/* STEP 20 & 24: Default single-column layout grid layout */
+.course-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1.25rem;
+}
+
+/* STEP 13 & 21: Course card components */
+.course-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    /* Step 21 sizing boundaries and cell grid stretching */
+    min-height: 200px;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-card h3 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.course-card p {
+    color: #475569;
+    margin-bottom: 1rem;
+    flex-grow: 1; 
+}
+
+.course-card span {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #2563eb;
+    background-color: #eff6ff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    align-self: flex-start;
+}
+
+/* FOOTER SECTION */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* STEP 25: TABLET MEDIA QUERY (Pasted cleanly below footer) */
+@media (min-width: 768px) {
+    header {
+        padding: 1rem 2rem;
+    }
+
+    /* Hide the mobile hamburger button placeholder */
+    .menu-toggle {
+        display: none;
+    }
+
+    /* STEP 25: Reveal the fully functional nav link items */
+    .nav-menu {
+        display: block;
+    }
+
+    .nav-menu ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .nav-menu a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .nav-menu a:hover {
+        color: #ffffff;
+    }
+
+    /* Un-stack statistics into a balanced horizontal row track */
+    .stats-bar {
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 2rem auto 0 auto;
+        max-width: 720px;
+        padding: 1.5rem;
+    }
+
+    #courses {
+        padding: 3rem 2rem;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    #courses h2 {
+        margin-bottom: 2rem;
+    }
+
+    /* STEP 25: Scale grid columns out to a 2-column layout layout */
+    .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* STEP 26: DESKTOP MEDIA QUERY (Appended at the absolute bottom)*/
+@media (min-width: 1024px) {
+    /* STEP 26: Increase hero padding configurations for desktop presentation */
+    #hero {
+        padding: 6rem 2rem;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .stats-bar {
+        max-width: 1200px;
+    }
+
+    #courses {
+        max-width: 1200px;
+    }
+
+    /* STEP 26: Scale architecture out to the final 3-column structural layout */
+    .course-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
